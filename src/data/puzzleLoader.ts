@@ -1,32 +1,46 @@
 /**
  * Puzzle loader utility
  * Loads and validates puzzle JSON files
+ * React Native compatible - uses static imports
  */
 
 import { PuzzleDefinition } from '../domain/types';
 import { validatePuzzle } from '../domain/validation';
 
-// Import puzzles
-// Note: In a real app with a bundler, you'd dynamically import these
-// For now, we'll use require for Node.js compatibility
-const puzzleIndex = require('./puzzles/index.json');
+// Import all puzzles statically (React Native compatible)
+import tutorial01 from './puzzles/tutorial/tutorial-01.json';
+import easy01 from './puzzles/easy/easy-01.json';
+import medium01 from './puzzles/medium/medium-01.json';
+import hard01 from './puzzles/hard/hard-01.json';
+import expert01 from './puzzles/expert/expert-01.json';
+
+// Puzzle registry
+const PUZZLES: Record<string, PuzzleDefinition> = {
+  'tutorial-01': tutorial01 as PuzzleDefinition,
+  'easy-01': easy01 as PuzzleDefinition,
+  'medium-01': medium01 as PuzzleDefinition,
+  'hard-01': hard01 as PuzzleDefinition,
+  'expert-01': expert01 as PuzzleDefinition,
+};
+
+// Puzzle order for progression
+const PUZZLE_ORDER = [
+  'tutorial-01',
+  'easy-01',
+  'medium-01',
+  'hard-01',
+  'expert-01',
+];
 
 /**
  * Load a puzzle by ID
  */
 export function loadPuzzle(puzzleId: string): PuzzleDefinition {
-  const puzzleEntry = puzzleIndex.puzzles.find(
-    (p: any) => p.id === puzzleId
-  );
+  const puzzle = PUZZLES[puzzleId];
 
-  if (!puzzleEntry) {
+  if (!puzzle) {
     throw new Error(`Puzzle not found: ${puzzleId}`);
   }
-
-  // In a real app, this would be a dynamic import or fetch
-  // For now, we'll construct the path
-  const puzzlePath = `./puzzles/${puzzleEntry.path}`;
-  const puzzle = require(puzzlePath) as PuzzleDefinition;
 
   // Validate puzzle
   const validation = validatePuzzle(puzzle);
@@ -43,9 +57,7 @@ export function loadPuzzle(puzzleId: string): PuzzleDefinition {
  * Load all puzzles
  */
 export function loadAllPuzzles(): PuzzleDefinition[] {
-  return puzzleIndex.puzzles.map((entry: any) =>
-    loadPuzzle(entry.id)
-  );
+  return PUZZLE_ORDER.map(id => loadPuzzle(id));
 }
 
 /**
@@ -62,21 +74,33 @@ export function getPuzzlesByDifficulty(
  * Get puzzle IDs
  */
 export function getAllPuzzleIds(): string[] {
-  return puzzleIndex.puzzles.map((p: any) => p.id);
+  return PUZZLE_ORDER;
 }
 
 /**
  * Get next puzzle by difficulty progression
  */
 export function getNextPuzzle(currentId: string): PuzzleDefinition | null {
-  const ids = getAllPuzzleIds();
-  const currentIndex = ids.indexOf(currentId);
+  const currentIndex = PUZZLE_ORDER.indexOf(currentId);
 
-  if (currentIndex === -1 || currentIndex === ids.length - 1) {
+  if (currentIndex === -1 || currentIndex === PUZZLE_ORDER.length - 1) {
     return null; // No next puzzle
   }
 
-  return loadPuzzle(ids[currentIndex + 1]);
+  return loadPuzzle(PUZZLE_ORDER[currentIndex + 1]);
+}
+
+/**
+ * Get previous puzzle
+ */
+export function getPreviousPuzzle(currentId: string): PuzzleDefinition | null {
+  const currentIndex = PUZZLE_ORDER.indexOf(currentId);
+
+  if (currentIndex === -1 || currentIndex === 0) {
+    return null; // No previous puzzle
+  }
+
+  return loadPuzzle(PUZZLE_ORDER[currentIndex - 1]);
 }
 
 /**
