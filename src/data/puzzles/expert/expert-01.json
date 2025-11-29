@@ -1,0 +1,26 @@
+{
+  "id": "expert-01",
+  "name": "The Gauntlet",
+  "difficulty": 5,
+  "startBoard": {
+    "grid": [
+      [9, 2, 7],
+      [4, 1, 6],
+      [3, 8, 5]
+    ]
+  },
+  "targetPatterns": [
+    {
+      "grid": [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+      ]
+    }
+  ],
+  "par": {
+    "swaps": 14,
+    "energy": 180
+  },
+  "createdAt": "2025-11-28T00:00:00Z"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "tutorial-01",
+  "name": "First Steps",
+  "difficulty": 1,
+  "startBoard": {
+    "grid": [
+      [2, 1, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ]
+  },
+  "targetPatterns": [
+    {
+      "grid": [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+      ]
+    }
+  ],
+  "par": {
+    "swaps": 1,
+    "energy": 3
+  },
+  "hints": [
+    "Tap object 1, then tap object 2 to swap them"
+  ],
+  "createdAt": "2025-11-28T00:00:00Z"
+}

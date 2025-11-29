@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "puzzles": [
+    {
+      "id": "tutorial-01",
+      "path": "tutorial/tutorial-01.json",
+      "difficulty": 1
+    },
+    {
+      "id": "easy-01",
+      "path": "easy/easy-01.json",
+      "difficulty": 2
+    },
+    {
+      "id": "medium-01",
+      "path": "medium/medium-01.json",
+      "difficulty": 3
+    },
+    {
+      "id": "hard-01",
+      "path": "hard/hard-01.json",
+      "difficulty": 4
+    },
+    {
+      "id": "expert-01",
+      "path": "expert/expert-01.json",
+      "difficulty": 5
+    }
+  ]
+}

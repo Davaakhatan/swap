@@ -1,0 +1,26 @@
+{
+  "id": "medium-01",
+  "name": "Corner Rotation",
+  "difficulty": 3,
+  "startBoard": {
+    "grid": [
+      [1, 4, 3],
+      [6, 5, 2],
+      [7, 8, 9]
+    ]
+  },
+  "targetPatterns": [
+    {
+      "grid": [
+        [3, 4, 9],
+        [6, 5, 2],
+        [1, 8, 7]
+      ]
+    }
+  ],
+  "par": {
+    "swaps": 6,
+    "energy": 64
+  },
+  "createdAt": "2025-11-28T00:00:00Z"
+}
